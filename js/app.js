@@ -7,3 +7,15 @@ const baseUrl = "https://api.weatherapi.com/v1";
 let map;
 let marker;
 
+//search button function
+function handleSearch(event) {
+    event.preventDefault(); 
+    
+    const cityInput = document.getElementById("cityInput");
+    const cityName = cityInput.value.trim();
+
+    if (cityName !== "") {
+        getWeather(cityName);
+    }
+}
+
