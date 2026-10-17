@@ -56,5 +56,10 @@ fetch(url)
             document.getElementById("conditionText").innerText = data.current.condition.text;
             document.getElementById("humidityVal").innerText = `${data.current.humidity}%`;
             document.getElementById("windVal").innerText = `${data.current.wind_kph} km/h`;
+
+            //weather icon
+            const iconImg = document.getElementById("weatherIcon");
+            iconImg.src = `https:${data.current.condition.icon}`;
+            iconImg.style.display = "inline-block";
     })
 }
