@@ -3,7 +3,7 @@ console.log("Wlecome Live Wether");
 const apiKey = "966b5c40f9bf4c4f8eb105437261210";
 const baseUrl = "https://api.weatherapi.com/v1";
 
-fetch(`${baseUrl}/current.json?key=${apiKey}&q=Panadura`).then(res => res.json()).then(data =>{
+fetch(`${baseUrl}/current.json?key=${apiKey}&q=Kalutara`).then(res => res.json()).then(data =>{
     console.log(data);
     
 });
@@ -12,6 +12,19 @@ fetch(`${baseUrl}/current.json?key=${apiKey}&q=Panadura`).then(res => res.json()
 
 let map;
 let marker;
+
+
+//map loard
+function initMap() {
+    map = L.map('map').setView([6.5854, 79.9607], 10);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    marker = L.marker([6.5854, 79.9607]).addTo(map);
+}
+
 
 //search button function
 function handleSearch(event) {
@@ -24,16 +37,7 @@ function handleSearch(event) {
         getWeather(cityName);
     }
 }
-//map loard
-function initMap() {
-    map = L.map('map').setView([6.5854, 79.9607], 10);
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
 
-    marker = L.marker([6.5854, 79.9607]).addTo(map);
-}
 //api call data
 
 function getWeather(city) {
@@ -61,5 +65,19 @@ fetch(url)
             const iconImg = document.getElementById("weatherIcon");
             iconImg.src = `https:${data.current.condition.icon}`;
             iconImg.style.display = "inline-block";
+
+            //map change set locaton
+            const lat = data.location.lat;
+            const lon = data.location.lon;
+            
+            map.flyTo([lat, lon], 11, { duration: 1.5 });
+            marker.setLatLng([lat, lon]);
+            marker.bindPopup(`<b>${data.location.name}</b>`).openPopup();
     })
+    .catch(error => {
+            console.log("Error: ", error);
+        });
 }
+window.onload = ()
+initMap();
+getWeather("Kalutara");
