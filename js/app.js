@@ -18,4 +18,13 @@ function handleSearch(event) {
         getWeather(cityName);
     }
 }
+//map loard
+function initMap() {
+    map = L.map('map').setView([6.5854, 79.9607], 10);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
 
+    marker = L.marker([6.5854, 79.9607]).addTo(map);
+}
