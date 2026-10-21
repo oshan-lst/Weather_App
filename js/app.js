@@ -78,6 +78,8 @@ fetch(url)
             console.log("Error: ", error);
         });
 }
-window.onload = ()
-initMap();
-getWeather("Kalutara");
+//on window loard
+window.onload = () => {
+    initMap();
+    getWeather("Panadura");
+};
